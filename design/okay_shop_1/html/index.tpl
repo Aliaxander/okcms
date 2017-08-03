@@ -147,14 +147,12 @@
     <link href="/design/{$settings->theme}/images/favicon.png" type="image/x-icon" rel="shortcut icon">
 
     {* JQuery *}
-    <script src="/design/{$settings->theme}/js/jquery-2.1.4.min.js"></script>
-
-    {* Slick slider *}
+    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/design/{$settings->theme}/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/design/{$settings->theme}/js/jquery.fancybox.min.js"></script>
+    <script src="/design/{$settings->theme}/js/jquery-ui.min.js"></script>
     <script src="/design/{$settings->theme}/js/slick.min.js"></script>
-
-    {* Match height *}
     <script src="/design/{$settings->theme}/js/jquery.matchHeight-min.js"></script>
-
     {* Google Analytics *}
     {if $settings->g_analytics}
     {literal}
@@ -162,8 +160,8 @@
             (function (i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
                 i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
                 a = s.createElement(o),
                     m = s.getElementsByTagName(o)[0];
                 a.async = 1;
@@ -220,16 +218,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-8-m col-xs-4 col-sm-4 col-lg-3 col-md-3">
-                    <div class="logo"><a href="/design/{$settings->theme}//"><img
+                    <div class="logo"><a href="/"><img
                                     src="/design/{$settings->theme}/img/logo.svg" alt="" class="img-responsive"></a>
                     </div>
                 </div>
                 <div class="col-xs-4-m col-xs-3 col-sm-3 col-lg-3 col-md-2 pull-right">
                     <!-- info-nav -->
                     <ul class="info-nav">
-                        <li><a href="/design/{$settings->theme}/favorites.html" class="sprites i-heart"></a></li>
-                        <li><a href="/design/{$settings->theme}/collation.html" class="sprites i-scales"></a></li>
-                        <li><a href="/design/{$settings->theme}/basket.html" class="sprites i-basket"></a></li>
+                        {include file='wishlist_informer.tpl'}
+                        {include file='comparison_informer.tpl'}
+                        {include file='cart_informer.tpl'}
                     </ul>
                     <!-- /info-nav -->
                 </div>
@@ -255,21 +253,22 @@
                         <div class="shadow"></div>
                         <!-- /catalogue -->
                     </div>
-                    {if $module == "MainView"}
-                        <div class="col-lg-9 col-md-8 col-sm-7 wrap-search">
-                            <!-- search -->
-                            <div class="search">
-                                <form action="#">
-                                    <input type="text" placeholder="Поиск">
-                                    <button class="search-btn"><span class="sprites i-search"></span></button>
-                                </form>
-                            </div>
-                            <!-- /search -->
-                            <!-- action -->
-                            <img src="/design/{$settings->theme}/img/content/action.jpg" alt="" class="img-responsive">
-                            <!-- action -->
+
+                    <div class="col-lg-9 col-md-8 col-sm-7 wrap-search">
+                        <!-- search -->
+                        <div class="search">
+                            <form action="#">
+                                <input type="text" placeholder="Поиск">
+                                <button class="search-btn"><span class="sprites i-search"></span></button>
+                            </form>
                         </div>
-                    {/if}
+                        <!-- /search -->
+                        {if $module == "MainView"}
+                        <!-- action -->
+                        <img src="/design/{$settings->theme}/img/content/action.jpg" alt="" class="img-responsive">
+                        <!-- action -->
+                        {/if}
+                    </div>
 
                 </div>
             </div>
@@ -457,11 +456,6 @@
 </div>
 <!-- /director -->
 
-<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="/design/{$settings->theme}/js/bootstrap.min.js"></script>
-
-<!-- slick -->
-<script type="text/javascript" src="/design/{$settings->theme}/js/slick.min.js"></script>
 <script type="text/javascript">
     $('.item-slider').slick({
         dots: false,

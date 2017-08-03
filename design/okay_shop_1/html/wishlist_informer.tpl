@@ -1,12 +1,6 @@
 {* Информер избранного (отдаётся аяксом) *}
 {if $wished_products|count > 0}
-    <a href="{$lang_link}wishlist">
-        <i class="wish_icon"></i>
-        <span class="informer_name tablet-hidden" data-language="wishlist_header">{$lang->wishlist_header}</span> <span class="informer_counter">({$wished_products|count})</span>
-    </a>
+    <li><a href="{$lang_link}wishlist" class="sprites i-heart"><span class="count">{$wished_products|count}</span></a></li>
 {else}
-    <span>
-        <i class="wish_icon"></i>
-        <span class="informer_name tablet-hidden" data-language="wishlist_header">{$lang->wishlist_header}</span>
-    </span>
+    <li><a href="{$lang_link}wishlist" class="sprites i-heart"></a></li>
 {/if}
