@@ -1,14 +1,6 @@
 {* Cart informer (given by Ajax) *}
 {if $cart->total_products > 0}
-    <a href="{$lang_link}cart" class="cart_info">
-        <span class="cart_counter">{$cart->total_products}</span>
-        <span class="cart_title" data-language="index_cart">{$lang->index_cart}</span>
-         <span class="cart_total">{($cart->total_price)|convert} {$currency->sign|escape}</span>
-    </a>
+    <li><a href="{$lang_link}cart" class="sprites i-basket"><span class="count">{$cart->total_products}</span></a></li>
 {else}
-    <div class="cart_info">
-        <span class="cart_counter">{$cart->total_products}</span>
-        <span class="cart_title" data-language="index_cart">{$lang->index_cart}</span>
-        <span class="cart_total">{($cart->total_price)|convert} {$currency->sign|escape}</span>
-    </div>
+    <li><a href="{$lang_link}cart" class="sprites i-basket"></a></li>
 {/if}

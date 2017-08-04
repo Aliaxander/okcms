@@ -1,6 +1,6 @@
 {* Breadcrumb navigation *}
 {if $module != "MainView"}
-    <ol class="breadcrumbs">
+    <ul class="breadcrumb">
 
         {* The link to the homepage *}
         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -110,5 +110,5 @@
         {elseif $smarty.get.module == 'WishlistView'}
             <li data-language="breadcrumb_wishlist">{$lang->breadcrumb_wishlist}</li>
         {/if}
-    </ol>
+    </ul>
 {/if}
