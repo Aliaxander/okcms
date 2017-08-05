@@ -57,7 +57,7 @@
                 {foreach $orders as $order}
                 <tr>
                     <td><a href='{$language->label}/order/{$order->url}'><span data-language="user_order_number">{$lang->user_order_number}</span>{$order->id}</a></td>
-                    <td><span data-language="user_order_date">{$lang->user_order_date}</span></td>
+                    <td>{$order->date|date}</td>
                     <td> {if $order->paid == 1}
                             <span data-language="status_paid">{$lang->status_paid}</span>,
                         {/if}
