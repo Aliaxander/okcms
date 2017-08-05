@@ -197,8 +197,13 @@
 
 
                 <ul class="navbar-nav navbar-right">
+                    {if $user}
+                    {* User account *}
+                    <li><a class="account_informer" href="/{$lang_link}user" data-language="index_account">{$lang->index_account}</a></li>
+                    {else}
                     <li><a href="/user/login"><span class="sprites i-login"></span>Вход</a></li>
                     <li><a href="/user/register"><span class="sprites i-registration"></span>Регистрация</a></li>
+                    {/if}
                 </ul>
                 <div id="navbar" class="collapse navbar-collapse wrap-nav">
                     <ul class="nav navbar-nav">
@@ -457,6 +462,7 @@
 <!-- /director -->
 
 <script type="text/javascript">
+
     $('.item-slider').slick({
         dots: false,
         infinite: true,
@@ -512,10 +518,10 @@
     });
 </script>
 {* Autocomplete *}
-<script src="design/{$settings->theme}/js/jquery.autocomplete-min.js" defer></script>
+<script src="/design/{$settings->theme}/js/jquery.autocomplete-min.js" defer></script>
 {* Okay *}
 {include file="scripts.tpl"}
-<script src="design/{$settings->theme}/js/okay.js"></script>
+<script src="/design/{$settings->theme}/js/okay.js"></script>
 {*template scripts*}
 </body>
 </html>

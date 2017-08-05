@@ -1,6 +1,16 @@
 <div class="wrap-item-block">
     <div class="item-block">
-        <a href="{if $smarty.get.module=='ComparisonView'}{$product->image->filename|resize:800:600:w}{else}{$lang_link}products/{$product->url}{/if}"
+        {if $smarty.get.module == "ComparisonView"}
+            <a href="#" class="fn_comparison selected sprites i-del" data-id="{$product->id}">
+            </a>
+        {/if}
+
+        {if $smarty.get.module == "WishlistView"}
+            <a href="#" class="fn_wishlist selected sprites i-del" data-id="{$product->id}">
+            </a>
+        {/if}
+
+        <a href="{if $smarty.get.module=='ComparisonView'}{$product->image->filename|resize:800:600:w}{else}{$lang_link}/products/{$product->url}{/if}"
            {if $smarty.get.module=='ComparisonView'}data-fancybox="group" data-caption="{$product->name|escape}"{/if}
            class="wrap-image">
             {if $product->image->filename}
@@ -14,7 +24,7 @@
             {/if}
         </a>
         <div class="item-body">
-            <div class="old-price{if !$product->variant->compare_price} hidden{/if}">{$product->variant->compare_price|convert} {$currency->sign|escape}</div>
+            <div class="old-price">{if !$product->variant->compare_price}{$product->variant->compare_price|convert} {$currency->sign|escape}{/if}</div>
             <div class="price">{$product->variant->price|convert} {$currency->sign|escape}</div>
             <div class="name">
                 <a class="product_name" data-product="{$product->id}"

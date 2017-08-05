@@ -1,6 +1,6 @@
 {if $products}
     {foreach $products as $product}
-        <div class="no_padding products_item col-sm-6 col-xl-4">
+        <div class="col-md-4 col-xs-6">
             {include file="product_list.tpl"}
         </div>
     {/foreach}

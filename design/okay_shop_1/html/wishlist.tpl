@@ -16,7 +16,7 @@
     <div class="fn_wishlist_page wish_products clearfix">
         {* Список избранных товаров *}
         {foreach $wished_products as $product}
-            <div class="products_item no_padding col-sm-6 col-xl-3">
+            <div class="col-md-3 col-sm-4 col-xs-6">
                 {include "product_list.tpl"}
             </div>
         {/foreach}

@@ -74,6 +74,9 @@ h3, .title-upper-small{
 	font-weight: bold;
 	margin: 29px 0 10px;
 }
+.slick-slide img {
+	height: 145px;
+}
 .title-upper-small{
 	margin: 20px 0 -1px;
 	text-transform: uppercase;

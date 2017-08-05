@@ -44,12 +44,14 @@
                 {* Discount products *}
                 {get_discounted_products var=discounted_products limit=4}
                 {if $discounted_products}
-                    <div class="item-slider">
-                        {foreach $discounted_products as $product}
-                            <div>
-                                {include "product_list.tpl"}
-                            </div>
-                        {/foreach}
+                    <div role="tabpanel" class="tab-pane active" id="actions">
+                        <div class="item-slider">
+                            {foreach $discounted_products as $product}
+                                <div>
+                                    {include "product_list.tpl"}
+                                </div>
+                            {/foreach}
+                        </div>
                     </div>
                 {/if}
 
@@ -58,12 +60,14 @@
                 {* Featured products *}
                 {get_featured_products var=featured_products limit=4}
                 {if $featured_products}
-                    <div class="main_products clearfix">
-                        {foreach $featured_products as $product}
-                            <div class="products_item no_padding col-sm-6 col-xl-3">
-                                {include "product_list.tpl"}
-                            </div>
-                        {/foreach}
+                    <div role="tabpanel" class="tab-pane" id="hits">
+                        <div class="item-slider">
+                            {foreach $featured_products as $product}
+                                <div>
+                                    {include "product_list.tpl"}
+                                </div>
+                            {/foreach}
+                        </div>
                     </div>
                 {/if}
             </div>
@@ -71,12 +75,14 @@
                 {* New products *}
                 {get_new_products var=new_products limit=4}
                 {if $new_products}
-                    <div class="main_products clearfix">
-                        {foreach $new_products as $product}
-                            <div class="products_item no_padding col-sm-6 col-xl-3">
-                                {include "product_list.tpl"}
-                            </div>
-                        {/foreach}
+                    <div role="tabpanel" class="tab-pane" id="hits">
+                        <div class="item-slider">
+                            {foreach $new_products as $product}
+                                <div>
+                                    {include "product_list.tpl"}
+                                </div>
+                            {/foreach}
+                        </div>
                     </div>
                 {/if}
 
@@ -151,6 +157,10 @@
 <div class="about">
     <div class="container">
         <div class="title title-margin-small">Интернет-магазин электротехники АЛЬТТЕХНО</div>
-        <p>Сеть магазинов АЛЬТТЕХНО существует на украинско-русском рынке уже более 10 лет и за это время мы успели получить звание одного из лучших магазинов современной техники. Все начиналось с небольших точек продаж, пока фирма не решила покорить мир интернет-торговли. С тех пор любой житель Украины, а теперь и России может заказать оригинальную технику от мировых производителей с быстрой доставкой в свой город. <a href="#">Подробнее</a></p>
+        <p>Сеть магазинов АЛЬТТЕХНО существует на украинско-русском рынке уже более 10 лет и за это время мы успели
+            получить звание одного из лучших магазинов современной техники. Все начиналось с небольших точек продаж,
+            пока фирма не решила покорить мир интернет-торговли. С тех пор любой житель Украины, а теперь и России может
+            заказать оригинальную технику от мировых производителей с быстрой доставкой в свой город. <a href="#">Подробнее</a>
+        </p>
     </div>
 </div>

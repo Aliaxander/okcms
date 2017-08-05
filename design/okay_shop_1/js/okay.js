@@ -36,6 +36,80 @@ $(document).on('submit', '.fn_variants', function(e) {
     //transfer( $('#cart_informer'), $(this) );
 });
 
+/* Аяксовый фильтр по цене slider-range*/
+if( $( '#slider-range' ).size() ) {
+    var slider_all = $( '#fn_slider_min, #fn_slider_max' ),
+        slider_min = $( '#fn_slider_min' ),
+        slider_max = $( '#fn_slider_max' ),
+        current_min = slider_min.val(),
+        current_max = slider_max.val(),
+        range_min = slider_min.data( 'price' ),
+        range_max = slider_max.data( 'price' ),
+        link = window.location.href.replace( /\/page-(\d{1,5})/, '' ),
+        ajax_slider = function() {
+            $.ajax( {
+                url: link,
+                data: {
+                    ajax: 1,
+                    'p[min]': slider_min.val(),
+                    'p[max]': slider_max.val()
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $( '#fn_products_content' ).html( data.products_content );
+                    $( '.fn_pagination' ).html( data.products_pagination );
+                    $('.fn_products_sort').html(data.products_sort);
+
+                    $('.fn_ajax_wait').remove();
+                }
+            } );
+        };
+    link = link.replace(/\/sort-([a-zA-Z_]+)/, '');
+
+    $( '#slider-range' ).slider( {
+        range: true,
+        min: range_min,
+        max: range_max,
+        values: [current_min, current_max],
+        slide: function(event, ui) {
+            slider_min.val( ui.values[0] );
+            slider_max.val( ui.values[1] );
+        },
+        stop: function(event, ui) {
+            slider_min.val( ui.values[0] );
+            slider_max.val( ui.values[1] );
+            $('.fn_categories').append('<div class="fn_ajax_wait"></div>');
+            ajax_slider();
+        }
+    } );
+
+    slider_all.on( 'change', function() {
+        $( "#slider-range" ).slider( 'option', 'values', [slider_min.val(), slider_max.val()] );
+        ajax_slider();
+    } );
+
+    // Если после фильтрации у нас осталось товаров на несколько страниц, то постраничную навигацию мы тоже проведем с помощью ajax чтоб не сбить фильтр по цене
+    $( document ).on( 'click', '.fn_is_ajax a', function(e) {
+        e.preventDefault();
+        $('.fn_categories').append('<div class="fn_ajax_wait"></div>');
+        var link = $(this).attr( 'href' ),
+            send_min = $("#fn_slider_min").val();
+        send_max = $("#fn_slider_max").val();
+        $.ajax( {
+            url: link,
+            data: { ajax: 1, 'p[min]': send_min, 'p[max]': send_max },
+            dataType: 'json',
+            success: function(data) {
+                $( '#fn_products_content' ).html( data.products_content );
+                $( '.fn_pagination' ).html( data.products_pagination );
+                $('#fn_products_sort').html(data.products_sort);
+
+                $('.fn_ajax_wait').remove();
+            }
+        } );
+    } );
+}
+
 /* Смена варианта в превью товара и в карточке */
 $(document).on('change', '.fn_variant', function() {
     var selected = $( this ).children( ':selected' ),
