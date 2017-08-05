@@ -2,6 +2,7 @@
 <html {if $language->href_lang}lang="{$language->href_lang|escape}"{/if} prefix="og: http://ogp.me/ns#">
 <head>
     {* Full base address *}
+    <base href="{$config->root_url}/">
 
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width">
