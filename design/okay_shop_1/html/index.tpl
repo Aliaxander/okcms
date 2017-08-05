@@ -147,7 +147,7 @@
     <link href="/design/{$settings->theme}/images/favicon.png" type="image/x-icon" rel="shortcut icon">
 
     {* JQuery *}
-    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="/design/{$settings->theme}/js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="/design/{$settings->theme}/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/design/{$settings->theme}/js/jquery.fancybox.min.js"></script>
     <script src="/design/{$settings->theme}/js/jquery-ui.min.js"></script>
@@ -257,9 +257,9 @@
                     <div class="col-lg-9 col-md-8 col-sm-7 wrap-search">
                         <!-- search -->
                         <div class="search">
-                            <form action="#">
-                                <input type="text" placeholder="Поиск">
-                                <button class="search-btn"><span class="sprites i-search"></span></button>
+                            <form action="{$lang_link}all-products">
+                                <input type="text" name="keyword" class="fn_search" value="{$keyword|escape}" data-language="index_search" placeholder="{$lang->index_search}"/>
+                                <button class="search-btn" type="submit"><span class="sprites i-search"></span></button>
                             </form>
                         </div>
                         <!-- /search -->
@@ -511,5 +511,11 @@
         ]
     });
 </script>
+{* Autocomplete *}
+<script src="design/{$settings->theme}/js/jquery.autocomplete-min.js" defer></script>
+{* Okay *}
+{include file="scripts.tpl"}
+<script src="design/{$settings->theme}/js/okay.js"></script>
+{*template scripts*}
 </body>
 </html>

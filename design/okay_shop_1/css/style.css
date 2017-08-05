@@ -49,6 +49,9 @@ body{
 	color: #333333;
 	background: #fff;
 }
+.hidden {
+	display: none!important;
+}
 a{
 	color: #3399cc;
 	text-decoration: underline;
