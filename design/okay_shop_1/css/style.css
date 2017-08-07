@@ -15,7 +15,11 @@ font-family: 'Roboto', sans-serif;
 font-family: 'Russo One', sans-serif;
 font-family: Days;
 */
-
+.transfer_class {
+	z-index: 22222;
+	position: absolute;
+	display: block;
+}
 
 * {
 	margin:0;

@@ -33,82 +33,8 @@ $(document).on('submit', '.fn_variants', function(e) {
         }
     } );
     /* Улеталка */
-    //transfer( $('#cart_informer'), $(this) );
+    transfer( $('#cart_informer'), $(this) );
 });
-
-/* Аяксовый фильтр по цене slider-range*/
-if( $( '#slider-range' ).size() ) {
-    var slider_all = $( '#fn_slider_min, #fn_slider_max' ),
-        slider_min = $( '#fn_slider_min' ),
-        slider_max = $( '#fn_slider_max' ),
-        current_min = slider_min.val(),
-        current_max = slider_max.val(),
-        range_min = slider_min.data( 'price' ),
-        range_max = slider_max.data( 'price' ),
-        link = window.location.href.replace( /\/page-(\d{1,5})/, '' ),
-        ajax_slider = function() {
-            $.ajax( {
-                url: link,
-                data: {
-                    ajax: 1,
-                    'p[min]': slider_min.val(),
-                    'p[max]': slider_max.val()
-                },
-                dataType: 'json',
-                success: function(data) {
-                    $( '#fn_products_content' ).html( data.products_content );
-                    $( '.fn_pagination' ).html( data.products_pagination );
-                    $('.fn_products_sort').html(data.products_sort);
-
-                    $('.fn_ajax_wait').remove();
-                }
-            } );
-        };
-    link = link.replace(/\/sort-([a-zA-Z_]+)/, '');
-
-    $( '#slider-range' ).slider( {
-        range: true,
-        min: range_min,
-        max: range_max,
-        values: [current_min, current_max],
-        slide: function(event, ui) {
-            slider_min.val( ui.values[0] );
-            slider_max.val( ui.values[1] );
-        },
-        stop: function(event, ui) {
-            slider_min.val( ui.values[0] );
-            slider_max.val( ui.values[1] );
-            $('.fn_categories').append('<div class="fn_ajax_wait"></div>');
-            ajax_slider();
-        }
-    } );
-
-    slider_all.on( 'change', function() {
-        $( "#slider-range" ).slider( 'option', 'values', [slider_min.val(), slider_max.val()] );
-        ajax_slider();
-    } );
-
-    // Если после фильтрации у нас осталось товаров на несколько страниц, то постраничную навигацию мы тоже проведем с помощью ajax чтоб не сбить фильтр по цене
-    $( document ).on( 'click', '.fn_is_ajax a', function(e) {
-        e.preventDefault();
-        $('.fn_categories').append('<div class="fn_ajax_wait"></div>');
-        var link = $(this).attr( 'href' ),
-            send_min = $("#fn_slider_min").val();
-        send_max = $("#fn_slider_max").val();
-        $.ajax( {
-            url: link,
-            data: { ajax: 1, 'p[min]': send_min, 'p[max]': send_max },
-            dataType: 'json',
-            success: function(data) {
-                $( '#fn_products_content' ).html( data.products_content );
-                $( '.fn_pagination' ).html( data.products_pagination );
-                $('#fn_products_sort').html(data.products_sort);
-
-                $('.fn_ajax_wait').remove();
-            }
-        } );
-    } );
-}
 
 /* Смена варианта в превью товара и в карточке */
 $(document).on('change', '.fn_variant', function() {
@@ -213,7 +139,7 @@ $(document).on('click', '.fn_comparison', function(e){
     } );
     /* Улеталка */
     if( !button.hasClass( 'selected' ) ) {
-        //transfer( $( '#comparison' ), $( this ) );
+        transfer( $( '#comparison' ), $( this ) );
     }
 });
 
@@ -250,7 +176,7 @@ $(document).on('click', '.fn_wishlist', function(e){
     } );
     /* Улеталка */
     if( !button.hasClass( 'selected' ) ) {
-        //transfer( $( '#wishlist' ), $( this ) );
+        transfer( $( '#wishlist' ), $( this ) );
     }
 });
 
@@ -298,7 +224,7 @@ $(function(){
         }
     });
 
-     /* Главное меню для мобильных */
+    /* Главное меню для мобильных */
     $('.fn_menu_switch').on("click", function(){
         $('.menu').toggle("normal");
         $('body').toggleClass('openmenu');
@@ -317,11 +243,35 @@ $(function(){
     });
     $('.catalog_menu .selected').parents('.parent').addClass('opened').find('> .switch').addClass('active');
 
+
+
+    //Табы в карточке товара
+    var nav = $('.tabs').find('.tab_navigation');
+    var tabs = $('.tabs').find('.tab_container');
+
+    if(nav.children('.selected').size() > 0) {
+        $(nav.children('.selected').attr("href")).show();
+    } else {
+        nav.children().first().addClass('selected');
+        tabs.children().first().show();
+    }
+
+    $('.tab_navigation a').click(function(e){
+        e.preventDefault();
+        if($(this).hasClass('selected')){
+            return true;
+        }
+        tabs.children().hide();
+        nav.children().removeClass('selected');
+        $(this).addClass('selected');
+        $($(this).attr("href")).fadeIn(200);
+    });
+
     //Кнопка вверх
     $(window).scroll(function () {
-    var scroll_height = $(window).height();
+        var scroll_height = $(window).height();
 
-     if ($(this).scrollTop() >= scroll_height) {
+        if ($(this).scrollTop() >= scroll_height) {
             $('.to_top').fadeIn();
         } else {
             $('.to_top').fadeOut();
@@ -414,7 +364,7 @@ $(function(){
     $('.products_item').matchHeight();
     $('.fn_col').matchHeight();
 
-    
+
 
 
     /* Зум картинок в карточке */
@@ -424,6 +374,80 @@ $(function(){
         }
     });
 
+    /* Аяксовый фильтр по цене */
+    if( $( '#fn_slider_price' ).size() ) {
+        var slider_all = $( '#fn_slider_min, #fn_slider_max' ),
+            slider_min = $( '#fn_slider_min' ),
+            slider_max = $( '#fn_slider_max' ),
+            current_min = slider_min.val(),
+            current_max = slider_max.val(),
+            range_min = slider_min.data( 'price' ),
+            range_max = slider_max.data( 'price' ),
+            link = window.location.href.replace( /\/page-(\d{1,5})/, '' ),
+            ajax_slider = function() {
+                $.ajax( {
+                    url: link,
+                    data: {
+                        ajax: 1,
+                        'p[min]': slider_min.val(),
+                        'p[max]': slider_max.val()
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        $( '#fn_products_content' ).html( data.products_content );
+                        $( '.fn_pagination' ).html( data.products_pagination );
+                        $('.fn_products_sort').html(data.products_sort);
+
+                        $('.fn_ajax_wait').remove();
+                    }
+                } );
+            };
+        link = link.replace(/\/sort-([a-zA-Z_]+)/, '');
+
+        $( '#fn_slider_price' ).slider( {
+            range: true,
+            min: range_min,
+            max: range_max,
+            values: [current_min, current_max],
+            slide: function(event, ui) {
+                slider_min.val( ui.values[0] );
+                slider_max.val( ui.values[1] );
+            },
+            stop: function(event, ui) {
+                slider_min.val( ui.values[0] );
+                slider_max.val( ui.values[1] );
+                $('.fn_categories').append('<div class="fn_ajax_wait"></div>');
+                ajax_slider();
+            }
+        } );
+
+        slider_all.on( 'change', function() {
+            $( "#fn_slider_price" ).slider( 'option', 'values', [slider_min.val(), slider_max.val()] );
+            ajax_slider();
+        } );
+
+        // Если после фильтрации у нас осталось товаров на несколько страниц, то постраничную навигацию мы тоже проведем с помощью ajax чтоб не сбить фильтр по цене
+        $( document ).on( 'click', '.fn_is_ajax a', function(e) {
+            e.preventDefault();
+            $('.fn_categories').append('<div class="fn_ajax_wait"></div>');
+            var link = $(this).attr( 'href' ),
+                send_min = $("#fn_slider_min").val();
+            send_max = $("#fn_slider_max").val();
+            $.ajax( {
+                url: link,
+                data: { ajax: 1, 'p[min]': send_min, 'p[max]': send_max },
+                dataType: 'json',
+                success: function(data) {
+                    $( '#fn_products_content' ).html( data.products_content );
+                    $( '.fn_pagination' ).html( data.products_pagination );
+                    $('#fn_products_sort').html(data.products_sort);
+
+                    $('.fn_ajax_wait').remove();
+                }
+            } );
+        } );
+    }
+
     /* Автозаполнитель поиска */
     $( ".fn_search" ).autocomplete( {
         serviceUrl: 'ajax/search_products.php',
@@ -431,6 +455,7 @@ $(function(){
         noCache: false,
         onSelect: function(suggestion) {
             $( "#fn_search" ).submit();
+            console.log('se');
         },
         formatResult: function(suggestion, currentValue) {
             var reEscape = new RegExp( '(\\' + ['/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\'].join( '|\\' ) + ')', 'g' );
@@ -438,6 +463,47 @@ $(function(){
             return "<div>" + (suggestion.data.image ? "<img align=absmiddle src='" + suggestion.data.image + "'> " : '') + "</div>" + "<a href=" + suggestion.lang + "products/" + suggestion.data.url + '>' + suggestion.value.replace( new RegExp( pattern, 'gi' ), '<strong>$1<\/strong>' ) + '<\/a>' + "<span>" + suggestion.price + " " + suggestion.currency + "</span>";
         }
     } );
+
+    /* Слайдер в сравнении */
+    if( $( '.fn_comparison_products' ).size() ) {
+        $( '.fn_comparison_products' ).slick( {
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: 2,
+                    }
+                },
+                {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        } );
+
+        resize_comparison();
+        $( '.fancy_zoom' ).fancybox();
+
+        /* Показать / скрыть одинаковые характеристики в сравнении */
+        $( document ).on( 'click', '.fn_show a', function(e) {
+            e.preventDefault();
+            $( '.fn_show a.active' ).removeClass( 'active' );
+            $( this ).addClass( 'active' );
+            if( $( this ).hasClass( 'unique' ) ) {
+                $( '.cell.not_unique' ).hide();
+            } else {
+                $( '.cell.not_unique' ).show();
+            }
+        } );
+    };
+    /* Рейтинг товара */
+    $('.product_rating').rater({ postHref: 'ajax/rating.php' });
 
     /* Переключатель способа оплаты */
     $( document ).on( 'click', '[name="payment_method_id"]', function() {
@@ -489,9 +555,9 @@ function amount_change(input, action) {
         curr_val = parseFloat( input.val() ),
         step = 1,
         id = input.data('id');
-        if(isNaN(curr_val)){
-            curr_val = okay.amount;
-        }
+    if(isNaN(curr_val)){
+        curr_val = okay.amount;
+    }
 
     /* Если включен предзаказ макс. кол-во товаров ставим 50 */
     if ( input.parent().hasClass('fn_is_preorder')) {
@@ -603,3 +669,107 @@ function ajax_remove(variant_id) {
     } );
 }
 
+/* Формирование ровных строчек для характеристик */
+function resize_comparison() {
+    var minHeightHead = 0;
+    $('.fn_resize' ).each(function(){
+        if( $(this ).height() > minHeightHead ) {
+            minHeightHead = $(this ).height();
+        }
+    });
+    $('.fn_resize' ).height(minHeightHead);
+    if ($('[data-use]').size()) {
+        $('[data-use]').each(function () {
+            var use = '.' + $(this).data('use');
+            var minHeight = $(this).height();
+            if ($(use).size()) {
+                $(use).each(function () {
+                    if ($(this).height() >= minHeight) {
+                        minHeight = $(this).height();
+                    }
+                });
+                $(use).height(minHeight);
+            }
+        });
+    }
+}
+
+/* В сравнении выравниваем строки */
+$( window ).load( resize_comparison );
+
+/* Звёздный рейтинг товаров */
+$.fn.rater = function (options) {
+    var opts = $.extend({}, $.fn.rater.defaults, options);
+    return this.each(function () {
+        var $this = $(this);
+        var $on = $this.find('.rating_starOn');
+        var $off = $this.find('.rating_starOff');
+        opts.size = $on.height();
+        if (opts.rating == undefined) opts.rating = $on.width() / opts.size;
+
+        $off.mousemove(function (e) {
+            var left = e.clientX - $off.offset().left;
+            var width = $off.width() - ($off.width() - left);
+            width = Math.ceil(width / (opts.size / opts.step)) * opts.size / opts.step;
+            $on.width(width);
+        }).hover(function (e) { $on.addClass('rating_starHover'); }, function (e) {
+            $on.removeClass('rating_starHover'); $on.width(opts.rating * opts.size);
+        }).click(function (e) {
+            var r = Math.round($on.width() / $off.width() * (opts.units * opts.step)) / opts.step;
+            $off.unbind('click').unbind('mousemove').unbind('mouseenter').unbind('mouseleave');
+            $off.css('cursor', 'default'); $on.css('cursor', 'default');
+            opts.id = $this.attr('id');
+            $.fn.rater.rate($this, opts, r);
+        }).css('cursor', 'pointer'); $on.css('cursor', 'pointer');
+    });
+};
+
+$.fn.rater.defaults = {
+    postHref: location.href,
+    units: 5,
+    step: 1
+};
+
+$.fn.rater.rate = function ($this, opts, rating) {
+    var $on = $this.find('.rating_starOn');
+    var $off = $this.find('.rating_starOff');
+    $off.fadeTo(600, 0.4, function () {
+        $.ajax({
+            url: opts.postHref,
+            type: "POST",
+            data: 'id=' + opts.id + '&rating=' + rating,
+            complete: function (req) {
+                if (req.status == 200) { /* success */
+                    opts.rating = parseFloat(req.responseText);
+
+                    if (opts.rating > 0) {
+                        opts.rating = parseFloat(req.responseText);
+                        $off.fadeTo(200, 0.1, function () {
+                            $on.removeClass('rating_starHover').width(opts.rating * opts.size);
+                            var $count = $this.find('.rating_count');
+                            $count.text(parseInt($count.text()) + 1);
+                            $this.find('.rating_value').text(opts.rating.toFixed(1));
+                            $off.fadeTo(200, 1);
+                        });
+                    }
+                    else
+                    if (opts.rating == -1) {
+                        $off.fadeTo(200, 0.6, function () {
+                            $this.find('.rating_text').text('Ошибка');
+                        });
+                    }
+                    else {
+                        $off.fadeTo(200, 0.6, function () {
+                            $this.find('.rating_text').text('Вы уже голосовали!');
+                        });
+                    }
+                } else { /* failure */
+                    alert(req.responseText);
+                    $on.removeClass('rating_starHover').width(opts.rating * opts.size);
+                    $this.rater(opts);
+                    $off.fadeTo(2200, 1);
+                }
+            }
+        });
+    });
+};

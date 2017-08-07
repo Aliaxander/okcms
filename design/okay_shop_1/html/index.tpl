@@ -148,12 +148,10 @@
     <link href="/design/{$settings->theme}/images/favicon.png" type="image/x-icon" rel="shortcut icon">
 
     {* JQuery *}
-    <script src="/design/{$settings->theme}/js/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="/design/{$settings->theme}/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/design/{$settings->theme}/js/jquery.fancybox.min.js"></script>
-    <script src="/design/{$settings->theme}/js/jquery-ui.min.js"></script>
-    <script src="/design/{$settings->theme}/js/slick.min.js"></script>
-    <script src="/design/{$settings->theme}/js/jquery.matchHeight-min.js"></script>
+
+    <script src="design/{$settings->theme}/js/jquery-2.1.4.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js "></script>
+    <script src="design/{$settings->theme}/js/slick.min.js"></script>
     {* Google Analytics *}
     {if $settings->g_analytics}
     {literal}
@@ -522,7 +520,11 @@
 <script src="/design/{$settings->theme}/js/jquery.autocomplete-min.js" defer></script>
 {* Okay *}
 {include file="scripts.tpl"}
-<script src="/design/{$settings->theme}/js/okay.js"></script>
+<script src="design/{$settings->theme}/js/jquery.fancybox.min.js"></script>
+<script src="design/{$settings->theme}/js/bootstrap.min.js"></script>
+<script src="design/{$settings->theme}/js/jquery.matchHeight-min.js"></script>
+<script src="design/{$settings->theme}/js/jquery-ui.min.js"></script>
+<script src="design/{$settings->theme}/js/okay.js"></script>
 {*template scripts*}
 </body>
 </html>
