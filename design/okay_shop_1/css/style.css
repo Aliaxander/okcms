@@ -56,6 +56,33 @@ body{
 .hidden {
 	display: none!important;
 }
+.filter_indicator {
+	position: absolute;
+	width: 14px;
+	height: 14px;
+	left: 0;
+	border: 1px solid #e8e8e1;
+	border-radius: 1px;
+}
+.filter_link {
+	display: block;
+	position: relative;
+	color: #333333;
+	padding-left: 36px;
+	font-size: 14px;
+	min-height: 24px;
+	line-height: 16px;
+	text-decoration: none;
+}
+
+.checked .filter_indicator {
+	background: #ffcc33 url(../img/sprites.png) -201px -351px no-repeat;
+	border-color: #ffcc33;
+}
+
+.filter_link:hover {
+	color: #b3b3b3;
+}
 a{
 	color: #3399cc;
 	text-decoration: underline;
@@ -78,7 +105,7 @@ h3, .title-upper-small{
 	font-weight: bold;
 	margin: 29px 0 10px;
 }
-.slick-slide img {
+.fn_img {
 	height: 145px;
 }
 .title-upper-small{

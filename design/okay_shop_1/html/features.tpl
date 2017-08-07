@@ -69,10 +69,15 @@
                        aria-controls="filter-block-{$f->id}">{$f->name}</a>
                     <div class="collapse in" id="filter-block-{$f->id}">
                         <ul class="check-list">
-                            <li><label><input type="checkbox" data-language="features_all">{$lang->features_all}</label>
-                            </li>
+                            <li><a class="filter_link{if !$smarty.get.$key} checked{/if}" href="{furl params=[$f->url=>null, page=>null]}">
+                                    <i class="filter_indicator"></i>
+                                    <span data-language="features_all">{$lang->features_all}</span>
+                                </a></li>
                             {foreach $f->options as $o}
-                                <li><label><input type="checkbox">{$o->value|escape}</label></li>
+                                <li><a class="filter_link{if $smarty.get.{$f@key} && in_array($o->translit,$smarty.get.{$f@key})} checked{/if}" href="{furl params=[$f->url=>$o->translit, page=>null]}">
+                                        <i class="filter_indicator"></i>
+                                        <span>{$o->value|escape}</span>
+                                    </a></li>
                             {/foreach}
                         </ul>
                     </div>

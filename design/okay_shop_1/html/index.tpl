@@ -516,15 +516,14 @@
         ]
     });
 </script>
-{* Autocomplete *}
-<script src="/design/{$settings->theme}/js/jquery.autocomplete-min.js" defer></script>
 {* Okay *}
 {include file="scripts.tpl"}
+{*template scripts*}
 <script src="design/{$settings->theme}/js/jquery.fancybox.min.js"></script>
 <script src="design/{$settings->theme}/js/bootstrap.min.js"></script>
 <script src="design/{$settings->theme}/js/jquery.matchHeight-min.js"></script>
-<script src="design/{$settings->theme}/js/jquery-ui.min.js"></script>
+{* Autocomplete *}
+<script src="design/{$settings->theme}/js/jquery.autocomplete-min.js" defer></script>
 <script src="design/{$settings->theme}/js/okay.js"></script>
-{*template scripts*}
 </body>
 </html>

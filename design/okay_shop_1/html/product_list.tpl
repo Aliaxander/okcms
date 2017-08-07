@@ -24,7 +24,7 @@
             {/if}
         </a>
         <div class="item-body">
-            <div class="old-price">{if !$product->variant->compare_price}{$product->variant->compare_price|convert} {$currency->sign|escape}{/if}</div>
+            <div class="old-price">{if $product->variant->compare_price }{$product->variant->compare_price|convert} {$currency->sign|escape}{/if}</div>
             <div class="price">{$product->variant->price|convert} {$currency->sign|escape}</div>
             <div class="name">
                 <a class="product_name" data-product="{$product->id}"

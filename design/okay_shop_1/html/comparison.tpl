@@ -3,74 +3,59 @@
 {* The page title *}
 {$meta_title = $lang->comparison_title scope=parent}
 
-{* The page heading *}
-<h1 class="h1">
-    <span data-language="comparison_header">{$lang->comparison_header}</span>
-</h1>
+{* The products comparison page *}
 
-{if $comparison->products}
-    <div class="comparison_page clearfix block">
-        <div class="comparison_left">
-            <div class="fn_product fn_resize compare_controls">
+{* The page title *}
+{$meta_title = $lang->comparison_title scope=parent}
 
-                {* Show all/different product features *}
-                {if $comparison->products|count > 1}
-                    <div class="fn_show compare_show">
-
-                        <a href="#show_all" class="active"><span data-language="comparison_all">{$lang->comparison_all}</span></a>
-
-                        <a href="#show_dif" class="unique"><span data-language="comparison_unique">{$lang->comparison_unique}</span></a>
-
-                    </div>
-                {/if}
-
-            </div>
-
-            {* Rating *}
-            <div class="cprs_rating" data-use="cprs_rating">
-                <span data-language="product_rating">{$lang->product_rating}</span>
-            </div>
-
-            {* Feature name *}
-            {if $comparison->features}
-                {foreach $comparison->features as $id=>$cf}
-                    <div class="cprs_feature_{$id} cell{if $cf->not_unique} not_unique{/if}" data-use="cprs_feature_{$id}">
-                        <span data-feature="{$cf->id}">{$cf->name}</span>
-                    </div>
-                {/foreach}
+<div class="content-small">
+    <h1 data-language="comparison_header">{$lang->comparison_header}</h1>
+    {if $comparison->products}
+    <div class="row collation-row">
+        <div class="col-md-3 col-sm-4">
+            {if $comparison->products|count > 1}
+            <ul class="collation-sort fn_show">
+                <li class="active"><a href="#show_all" data-language="comparison_all">{$lang->comparison_all}</a></li>
+                <li  class="unique"><a href="#show_dif" data-language="comparison_unique">{$lang->comparison_unique}</a></li>
+            </ul>
             {/if}
-
+            <table class="table collation-table collation-table-heading">
+                <tr><td data-language="product_rating">{$lang->product_rating}</td></tr>
+                {if $comparison->features}
+                    {foreach $comparison->features as $id=>$cf}
+                <tr><td data-feature="{$cf->id}">{$cf->name}</td></tr>
+                    {/foreach}
+                {/if}
+            </table>
         </div>
-
-        <div class="fn_comparison_products comparison_products">
-            {foreach $comparison->products as $id=>$product}
-                <div class="comparison_item">
-                    <div class="fn_resize">
-                        {include file="product_list.tpl"}
-                    </div>
-
-                    {* Rating *}
-                    <div id="product_{$product->id}" class="cprs_rating">
-                        <span class="rating_starOff">
-                            <span class="rating_starOn" style="width:{$product->rating*90/5|string_format:'%.0f'}px;"></span>
-                        </span>
-                    </div>
-
-                    {* Feature value *}
+        <div class="col-md-9 col-sm-8">
+            <div class="text-slider collation-slider">
+                {foreach $comparison->products as $id=>$product}
+                <div>
+                    <!-- item-block -->
+                    {include file="product_list.tpl"}
+                    <!-- /item-block -->
                     {if $product->features}
+                    <table class="table collation-table">
+                        <tr>
+                            <td>
+                                <div class="progress rating">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{$product->rating*90/5|string_format:'%.0f'}px;"></div>
+                                </div>
+                            </td>
+                        </tr>
                         {foreach $product->features as $id=>$value}
-                            <div class="cprs_feature_{$id} cell{if $comparison->features.{$id}->not_unique} not_unique{/if}">
-                                {$value|default:"&mdash;"}
-                            </div>
+                            <tr><td>{$value|default:"&mdash;"}</td></tr>
                         {/foreach}
+                    </table>
                     {/if}
-
                 </div>
-            {/foreach}
+                {/foreach}
+            </div>
         </div>
     </div>
-{else}
-    <div class="block padding">
-        <span data-language="comparison_empty">{$lang->comparison_empty}</span>
-    </div>
-{/if}
+    {else}
+        {$lang->comparison_empty}
+    {/if}
+</div>
+<!-- /content -->

@@ -90,68 +90,20 @@
         </div>
     </div>
 
-
-    {* Page content and Last posts *}
-    {get_posts var=last_posts limit=2 type_post="news"}
+    {get_posts var=last_posts limit=10 type_post="news"}
     {if $page->description || $last_posts}
-        <div class="wrap_block clearfix">
-            {if $page->description}
-                <div class="no_padding{if $last_posts} col-lg-6{else} col-lg-12{/if}">
-                    <div class="h2">
-                        <span data-language="main_about_store">{$lang->main_about_store}</span>
-                    </div>
-
-                    <div class="block padding">
-                        <h1 class="h4">{$page->name|escape}</h1>
-                        <div class="main_text">{$page->description}</div>
-                    </div>
-                </div>
-            {/if}
-
-            {if $last_posts}
-                <div class="no_padding{if $page->description} col-lg-6{else} col-lg-12{/if}">
-                    <div class="h2">
-                        <span data-language="main_news">{$lang->main_news}</span>
-                    </div>
-
-                    <div class="news clearfix block">
-                        {foreach $last_posts as $post}
-                            <div class="news_item no_padding col-sm-6">
-                                <a class="news_image" href="{$lang_link}{$post->type_post}/{$post->url}">
-                                    {if $post->image}
-                                        <img class="news_img"
-                                             src="{$post->image|resize:250:250:false:$config->resized_blog_dir}"
-                                             alt="{$post->name|escape}" title="{$post->name|escape}"/>
-                                    {/if}
-                                </a>
-
-                                <div class="news_content">
-
-                                    {* News name *}
-                                    <div class="h5">
-                                        <a href="{$lang_link}{$post->type_post}/{$post->url}"
-                                           data-post="{$post->id}">{$post->name|escape}</a>
-                                    </div>
-
-                                    {* News date *}
-                                    <div class="news_date"><span>{$post->date|date}</span></div>
-
-                                    {* News annotation *}
-                                    {if $post->annotation}
-                                        <div class="news_annotation">{$post->annotation}</div>
-                                    {/if}
-
-                                </div>
-                            </div>
-                        {/foreach}
-
-                        <div class="look_all">
-                            <a href="{$lang_link}news" data-language="main_all_news">{$lang->main_all_news}</a>
-                        </div>
-                    </div>
-                </div>
-            {/if}
+    <!-- news -->
+    <div class="title">Новости, статьи и обзоры</div>
+    <div class="text-slider">
+        {foreach $last_posts as $post}
+        <div>
+            <div class="news-block">
+                <a href="{$lang_link}{$post->type_post}/{$post->url}"><img src="{$post->image|resize:250:250:false:$config->resized_blog_dir}" alt="{$post->name|escape}" title="{$post->name|escape}" class="img-responsive"></a>
+                <p><a href="{$lang_link}{$post->type_post}/{$post->url}">{$post->name|escape}</a></p>
+            </div>
         </div>
+        {/foreach}
+    </div>
     {/if}
 </div>
 <div class="about">
