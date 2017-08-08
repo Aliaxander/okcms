@@ -42,7 +42,7 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="actions">
                 {* Discount products *}
-                {get_discounted_products var=discounted_products limit=4}
+                {get_discounted_products var=discounted_products limit=12}
                 {if $discounted_products}
                     <div role="tabpanel" class="tab-pane active" id="actions">
                         <div class="item-slider">
@@ -58,7 +58,7 @@
             </div>
             <div role="tabpanel" class="tab-pane" id="hits">
                 {* Featured products *}
-                {get_featured_products var=featured_products limit=4}
+                {get_featured_products var=featured_products limit=12}
                 {if $featured_products}
                     <div role="tabpanel" class="tab-pane" id="hits">
                         <div class="item-slider">
@@ -73,7 +73,7 @@
             </div>
             <div role="tabpanel" class="tab-pane" id="novelty">
                 {* New products *}
-                {get_new_products var=new_products limit=4}
+                {get_new_products var=new_products limit=12}
                 {if $new_products}
                     <div role="tabpanel" class="tab-pane" id="hits">
                         <div class="item-slider">

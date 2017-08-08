@@ -14,13 +14,13 @@
                         <div><a href="{$product->image->filename|resize:800:600:w}"
                                 data-caption="{$product->name|escape}" data-fancybox="gallery"><img
                                         src="{$product->image->filename|resize:300:300}" alt="{$product->name|escape}"
-                                        title="{$product->name|escape}" class="center-block img-responsive"></a></div>
+                                        title="{$product->name|escape}" class="center-block img-responsive fn_img"></a></div>
                     {else}
                         <div><a href="{$product->image->filename|resize:800:600:w}"
                                 data-caption="{$product->name|escape}" data-fancybox="gallery"><img
                                         src="design/{$settings->theme}/images/no_image.png" width="340" height="340"
                                         alt="{$product->name|escape}" title="{$product->name|escape}"
-                                        class="center-block img-responsive"></a></div>
+                                        class="center-block img-responsive fn_img"></a></div>
                     {/if}
                 </div>
                 {if $product->images|count > 1}
@@ -42,22 +42,28 @@
             </div>
             <a href="#">3 отзыва</a>
             <div class="wrap-price">
-                <del>{$product->variant->compare_price|convert} {$currency->sign|escape}</del>
+                <del {if !$product->variant->compare_price} class="hidden"{/if}>{$product->variant->compare_price|convert} {$currency->sign|escape}</del>
                 <div class="price">{$product->variant->price|convert} {$currency->sign|escape}</div>
-                +210 бонусов
+                {*+210 бонусов*}
                 <a href="#price-modal" data-toggle="modal" class="link">Предложить свою цену</a><a href="#"
                                                                                                    data-toggle="tooltip"
                                                                                                    data-placement="top"
                                                                                                    title="Если вы считаете, что наша цена не справедлива и вы можете аргументировать это, тогда предложите свою цену и мы рассмотрим ваше предложение."
                                                                                                    class="sprites i-question"></a>
             </div>
+            <form action="/{$lang_link}cart">
             <div class="wrap-buttons">
                 <input type="number" value="1" min="1" name="amount" max="{$product->variant->stock}">
-                <a href="#" class="btn btn-buy-big" data-language="product_add_cart"><span
-                            class="sprites i-basket"></span>{$lang->product_add_cart}</a>
+                <select name="variant" class="fn_variant variant_select{if $product->variants|count < 2} hidden{/if}">
+                    {foreach $product->variants as $v}
+                        <option value="{$v->id}" data-price="{$v->price|convert}" data-stock="{$v->stock}"{if $v->compare_price > 0} data-cprice="{$v->compare_price|convert}"{/if}{if $v->sku} data-sku="{$v->sku}"{/if}>{if $v->name}{$v->name}{else}{$product->name|escape}{/if}</option>
+                    {/foreach}
+                </select>
+                <button type="submit" class="fn_is_stock  btn btn-buy-big" data-language="product_add_cart"><span
+                            class="sprites i-basket"></span>{$lang->product_add_cart}</button>
                 <a href="#one-click" data-toggle="modal" class="btn btn-buy-white">Купить в 1 клик</a>
-                <a href="favorites.html" class="sprites i-heart active"></a>
-                <a href="collation.html" class="sprites i-scales active"></a>
+                <a href="#" class="sprites i-heart active fn_wishlist"></a>
+                <a href="#" class="sprites i-scales active fn_comparison"></a>
             </div>
             <div class="row product-info mobile-row">
                 <div class="col-md-6 col-sm-12 col-xs-6">
@@ -71,6 +77,7 @@
                     <p>Оплата производится после доставки и проверки товара.</p>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 </div>
