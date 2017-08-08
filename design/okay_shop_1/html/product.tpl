@@ -36,11 +36,18 @@
             <div class="code" data-language="product_sku">{$lang->product_sku}: {$product->variant->sku|escape}</div>
             <h1 class="title" data-product="{$product->id}"
                 itemprop="name">{$product->name|escape} {if $product->variants|count == 1 && !empty($product->variant->name)}({$product->variant->name|escape}){/if}</h1>
+            <div id="product_{$product->id}" class="product_rating"{if $product->rating > 0} itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"{/if}>
+
+                                    <span class="rating_starOff">
+                                        <span class="rating_starOn" style="width:{$product->rating*90/5|string_format:'%.0f'}px;"></span>
+                                    </span>
+                <span class="rating_text"></span>
+            </div>
             <div class="progress rating">
                 <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                     style="width: 80%;"></div>
+                     style="width: {$product->rating*90/5|string_format:'%.0f'}%;"></div>
             </div>
-            <a href="#">3 отзыва</a>
+            <a href="#">{$comments|count} отзыва</a>
             <div class="wrap-price">
                 <del {if !$product->variant->compare_price} class="hidden"{/if}>{$product->variant->compare_price|convert} {$currency->sign|escape}</del>
                 <div class="price">{$product->variant->price|convert} {$currency->sign|escape}</div>
@@ -70,7 +77,7 @@
                     <p>Доставка</p>
                     <p>Бесплатно — от 3 000 руб.</p>
                     <p>Доставка курьером — от 100 руб.</p>
-                    <p>Самовывоз — бесплатно <a href="shop.html">Адреса магазинов</a></p>
+                    <p>Самовывоз — бесплатно</p>
                 </div>
                 <div class="col-md-6 col-sm-12 col-xs-6">
                     <p>Оплата</p>
@@ -126,47 +133,61 @@
             </div>
         </div>
 
+
         <div role="tabpanel" class="tab-pane fade" id="reviews">
             <div class="row">
+                {if $comments}
+                    {function name=comments_tree level=0}
+                    {foreach $comments as $comment}
                 <div class="col-sm-6">
                     <div class="title">Отзывы покупателей</div>
                     <div class="review-block">
-                        <p><b>Валера</b> <span class="post-date">29.06.2017</span></p>
-                        <p>Сервис позволяет автоматически отправлять деньги любому количеству клиентов — на электронные кошельки, телефоны, банковские счета и карты.</p>
-                        <p>Решение подходит для МФО, маркетинговых агентств, онлайн-игр и похожих сервисов.</p>
+                        <p><b>{$comment->name|escape}</b> <span class="post-date">{$comment->date|date}, {$comment->date|time}</span></p>
+                        <p>{$comment->text|escape|nl2br}</p>
                     </div>
-                    <div class="review-block">
-                        <p><b>Валера</b> <span class="post-date">29.06.2017</span></p>
-                        <p>Сервис позволяет автоматически отправлять деньги любому количеству клиентов — на электронные кошельки, телефоны, банковские счета и карты.</p>
-                        <p>Решение подходит для МФО, маркетинговых агентств, онлайн-игр и похожих сервисов.</p>
-                    </div>
-                    <div class="collapse" id="all-review">
-                        <div class="review-block">
-                            <p><b>Валера</b> <span class="post-date">29.06.2017</span></p>
-                            <p>Сервис позволяет автоматически отправлять деньги любому количеству клиентов — на электронные кошельки, телефоны, банковские счета и карты.</p>
-                            <p>Решение подходит для МФО, маркетинговых агентств, онлайн-игр и похожих сервисов.</p>
-                        </div>
-                        <div class="review-block">
-                            <p><b>Валера</b> <span class="post-date">29.06.2017</span></p>
-                            <p>Сервис позволяет автоматически отправлять деньги любому количеству клиентов — на электронные кошельки, телефоны, банковские счета и карты.</p>
-                            <p>Решение подходит для МФО, маркетинговых агентств, онлайн-игр и похожих сервисов.</p>
-                        </div>
-                    </div>
-                    <p><a href="#all-review" data-toggle="collapse"  aria-expanded="true" aria-controls="all-review">Все отзывы</a></p>
                 </div>
+                    {/foreach}
+                    {/function}
+                    {comments_tree comments=$comments}
+                {else}
+                    <div class="no_comments">
+                        <span data-language="product_no_comments">{$lang->product_no_comments}</span>
+                    </div>
+                {/if}
                 <div class="col-sm-6">
+                    {* Form error messages *}
+                    {if $error}
+                        <div class="message_error">
+                            {if $error=='captcha'}
+                                <span data-language="form_error_captcha">{$lang->form_error_captcha}</span>
+                            {elseif $error=='empty_name'}
+                                <span data-language="form_enter_name">{$lang->form_enter_name}</span>
+                            {elseif $error=='empty_comment'}
+                                <span data-language="form_enter_comment">{$lang->form_enter_comment}</span>
+                            {elseif $error=='empty_email'}
+                                <span data-language="form_enter_email">{$lang->form_enter_email}</span>
+                            {/if}
+                        </div>
+                    {/if}
                     <!-- review-form -->
                     <div class="review-form">
-                        <form action="#">
+                        <form method="post">
                             <div class="row mobile-row">
                                 <div class="col-md-6 col-sm-12 col-xs-6">
-                                    <div class="form-group"><label>Имя <span class="text-red">*</span>:</label><input type="text"></div>
+                                    <div class="form-group"><label>Имя <span class="text-red">*</span>:</label><input type="text" name="name" value="{$comment_name|escape}" placeholder="{$lang->form_name}"></div>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-6">
-                                    <div class="form-group"><label>E-mail:</label><input type="text"></div>
+                                    <div class="form-group"><label>E-mail:</label><input type="text" name="email" value="{$comment_email|escape}" data-language="form_email" placeholder="{$lang->form_email}"></div>
                                 </div>
                             </div>
-                            <div class="form-group"><label>Отзыв <span class="text-red">*</span>:</label><textarea name="comment" id="comment"></textarea></div>
+                            <div class="form-group"><label>Отзыв <span class="text-red">*</span>:</label><textarea name="text" placeholder="{$lang->form_enter_comment}">{$comment_text}</textarea></div>
+                            {if $settings->captcha_product}
+                                {get_captcha var="captcha_product"}
+                                <div class="captcha">
+                                    <div class="form-group"><label>{$captcha_product[0]|escape} + ? =  {$captcha_product[1]|escape} <span class="text-red">*</span>:</label><input  type="text" name="captcha_code" value="" placeholder="{$lang->form_enter_captcha}*"/></div>
+                                </div>
+                            {/if}
+
                             <p class="text-right"><button class="btn">Написать</button></p>
                         </form>
                     </div>

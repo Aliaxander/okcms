@@ -150,7 +150,7 @@
     {* JQuery *}
 
     <script src="design/{$settings->theme}/js/jquery-2.1.4.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js "></script>
+    <script src="//code.jquery.com/ui/1.9.2/jquery-ui.js "></script>
     <script src="design/{$settings->theme}/js/slick.min.js"></script>
     {* Google Analytics *}
     {if $settings->g_analytics}

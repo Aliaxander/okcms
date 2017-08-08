@@ -14,11 +14,11 @@
            {if $smarty.get.module=='ComparisonView'}data-fancybox="group" data-caption="{$product->name|escape}"{/if}
            class="wrap-image">
             {if $product->image->filename}
-                <img class="fn_img img-responsive center-block" src="{$product->image->filename|resize:200:200}"
+                <img class="fn_img img-responsive img-hg center-block" src="{$product->image->filename|resize:200:200}"
                      alt="{$product->name|escape}"
                      title="{$product->name|escape}"/>
             {else}
-                <img class="fn_img img-responsive center-block" src="design/{$settings->theme}/images/no_image.png" width="250"
+                <img class="fn_img img-responsive img-hg center-block" src="design/{$settings->theme}/images/no_image.png" width="250"
                      height="250"
                      alt="{$product->name|escape}"/>
             {/if}

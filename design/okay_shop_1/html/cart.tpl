@@ -12,8 +12,12 @@
     {* Cart form *}
     <form method="post" name="cart">
     <!-- basket-table -->
+        <div id="fn_purchases">
         {include file='cart_purchases.tpl'}
+        </div>
+        <div id="fn_ajax_deliveries">
         {include file='cart_deliveries.tpl'}
+        </div>
     <!-- /basket-table -->
         {if $error}
             <div class="message_error">
