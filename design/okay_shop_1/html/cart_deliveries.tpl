@@ -6,7 +6,7 @@
         {foreach $deliveries as $delivery}
         <li>
             <label>
-                <input id="deliveries_{$delivery->id}" onclick="change_payment_method({$delivery->id})" type="radio" name="delivery_id" value="{$delivery->id}" {if $delivery_id==$delivery->id || $delivery@first} checked{/if} />
+                <input onclick="change_payment_method({$delivery->id})" type="radio" name="delivery_id" value="{$delivery->id}" {if $delivery_id==$delivery->id || $delivery@first} checked{/if} />
                 <span class="sprites i-delivery-{$delivery->id}"></span>
             </label>
             <p><b>{$delivery->name|escape}
@@ -26,7 +26,7 @@
 {foreach $deliveries as $delivery}
 {if $delivery->payment_methods}
 <!-- payments -->
-    <div {if $delivery@iteration != 1} style="display:none"{/if}>
+    <div id="fn_delivery_payment_{$delivery->id}" class="fn_delivery_payment" {if $delivery@iteration != 1} style="display:none"{/if}>
 <div class="title-big "data-language="cart_payment">{$lang->cart_payment}</div>
 <div class="border-block">
     <ul class="radio-list payment-list">
