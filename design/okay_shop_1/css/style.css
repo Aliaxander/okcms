@@ -21,6 +21,36 @@ font-family: Days;
 	display: block;
 }
 
+.autocomplete-suggestion div, .autocomplete-suggestions span, .autocomplete-suggestions a {
+	display: table-cell;
+	vertical-align: middle;
+}
+.autocomplete-suggestions a {
+	color: #000000;
+}
+.autocomplete-suggestions a:hover {
+	color: #ffcc33;
+}
+.autocomplete-suggestion div {
+	width: 45px !important;
+	text-align: center;
+}
+.autocomplete-suggestions span {
+	white-space: nowrap;
+	float: right;
+	padding-right: 20px;
+}
+.autocomplete-suggestions .autocomplete-selected {
+	background: #fffaec;
+}
+.autocomplete-suggestions {
+	background: #fff;
+	border: 1px solid #ffcc33;
+}
+.autocomplete-suggestion:nth-child(even) {
+	background-color: #fdf4dc;
+}
+
 * {
 	margin:0;
 	padding:0

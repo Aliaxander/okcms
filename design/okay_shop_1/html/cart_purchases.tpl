@@ -21,7 +21,11 @@
                 </a></td>
             <td><div class="name"><a href="{$lang_link}products/{$purchase->product->url}">{$purchase->product->name|escape}</a></div></td>
             <td>{($purchase->variant->price)|convert} {$currency->sign}</td>
-            <td><input type="number" min="1" value="{$purchase->amount}" name="amounts[{$purchase->variant->id}]" data-id="{$purchase->variant->id}" value="{$purchase->amount}" onblur="ajax_change_amount(this, {$purchase->variant->id});" data-max="{$purchase->variant->stock}"></td>
+            <td><div class="jq-number fn_product_amount{if $settings->is_preorder} fn_is_preorder{/if} amount">
+                    <span class="jq-number__spin minus"></span>
+                    <div class="jq-number__field"><input class="input_amount" type="text" data-id="{$purchase->variant->id}" name="amounts[{$purchase->variant->id}]" value="{$purchase->amount}" onblur="ajax_change_amount(this, {$purchase->variant->id});" data-max="{$purchase->variant->stock}"></div>
+                    <span class="jq-number__spin plus"></span>
+                </div></td>
             <td>{($purchase->variant->price*$purchase->amount)|convert} {$currency->sign}</td>
         </tr>
         {/foreach}

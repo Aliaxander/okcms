@@ -15,6 +15,12 @@
                                 data-caption="{$product->name|escape}" data-fancybox="gallery"><img
                                         src="{$product->image->filename|resize:300:300}" alt="{$product->name|escape}"
                                         title="{$product->name|escape}" class="center-block img-responsive fn_img"></a></div>
+                        {foreach $product->images|cut as $i=>$image}
+                            <div><a href="{$image->filename|resize:800:600:w}"
+                                    data-caption="{$product->name|escape}" data-fancybox="gallery"><img
+                                            src="{$image->filename|resize:300:300}" alt="{$product->name|escape}"
+                                            title="{$product->name|escape}" class="center-block img-responsive fn_img"></a></div>
+                        {/foreach}
                     {else}
                         <div><a href="{$product->image->filename|resize:800:600:w}"
                                 data-caption="{$product->name|escape}" data-fancybox="gallery"><img
@@ -25,6 +31,7 @@
                 </div>
                 {if $product->images|count > 1}
                     <div class="slider-nav">
+                        <div><img src="{$product->image->filename|resize:75:75}" alt="{$product->name|escape}"></div>
                         {foreach $product->images|cut as $i=>$image}
                             <div><img src="{$image->filename|resize:75:75}" alt="{$product->name|escape}"></div>
                         {/foreach}
@@ -34,8 +41,9 @@
         </div>
         <div class="col-sm-6">
             <div class="code" data-language="product_sku">{$lang->product_sku}: {$product->variant->sku|escape}</div>
-            <h1 class="title" data-product="{$product->id}"
-                itemprop="name">{$product->name|escape} {if $product->variants|count == 1 && !empty($product->variant->name)}({$product->variant->name|escape}){/if}</h1>
+            <h1 class="title" data-product="{$product->id}" itemprop="name">{$product->name|escape} {if $product->variants|count == 1 && !empty($product->variant->name)}({$product->variant->name|escape}){/if}</h1>
+
+            {* Product Rating *}
             <div id="product_{$product->id}" class="product_rating"{if $product->rating > 0} itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"{/if}>
 
                                     <span class="rating_starOff">
@@ -43,10 +51,7 @@
                                     </span>
                 <span class="rating_text"></span>
             </div>
-            <div class="progress rating">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                     style="width: {$product->rating*90/5|string_format:'%.0f'}%;"></div>
-            </div>
+
             <a href="#">{$comments|count} отзыва</a>
             <div class="wrap-price">
                 <del {if !$product->variant->compare_price} class="hidden"{/if}>{$product->variant->compare_price|convert} {$currency->sign|escape}</del>
@@ -60,7 +65,13 @@
             </div>
             <form action="/{$lang_link}cart">
             <div class="wrap-buttons">
-                <input type="number" value="1" min="1" name="amount" max="{$product->variant->stock}">
+                <div class="jq-number amount fn_product_amount">
+                    <span class="jq-number__spin minus"></span>
+                    <div class="jq-number__field">
+                    <input class="input_amount" type="text" name="amount" value="1" data-max="{$product->variant->stock}">
+                    </div>
+                    <span class="jq-number__spin plus"></span>
+                </div>
                 <select name="variant" class="fn_variant variant_select{if $product->variants|count < 2} hidden{/if}">
                     {foreach $product->variants as $v}
                         <option value="{$v->id}" data-price="{$v->price|convert}" data-stock="{$v->stock}"{if $v->compare_price > 0} data-cprice="{$v->compare_price|convert}"{/if}{if $v->sku} data-sku="{$v->sku}"{/if}>{if $v->name}{$v->name}{else}{$product->name|escape}{/if}</option>
@@ -95,7 +106,7 @@
                                                   data-toggle="tab">ОПИСАНИЕ</a></li>
         <li role="presentation"><a href="#characteristics" aria-controls="characteristics" role="tab" data-toggle="tab">ХАРАКТЕРИСТИКИ</a>
         </li>
-        <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">ОТЗЫВЫ (2)</a>
+        <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">ОТЗЫВЫ ({$comments|count})</a>
         </li>
     </ul>
     <div class="tab-content">
@@ -125,9 +136,9 @@
                                 </li>
                             {/foreach}
                         </ul>
-                        <p><a href="#characteristics" aria-controls="characteristics" role="tab" data-toggle="tab">Полные
-                                характеристики</a></p>
-                        </p>
+                        {*<p><a href="#characteristics" aria-controls="characteristics" role="tab" data-toggle="tab">Полные*}
+                                {*характеристики</a></p>*}
+                        {*</p>*}
                     {/if}
                 </div>
             </div>
@@ -316,128 +327,3 @@
         </div>
     </div>
 </div>
-<!-- /price -->
-<script type="text/javascript">
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-</script>
-
-<!-- range -->
-
-<script type="text/javascript">
-    jQuery(function () {
-        jQuery("#slider-range").slider({
-            min: 3000,
-            max: 300000,
-            values: [3000, 300000],
-            step: 1,
-            range: true,
-            slide: function (event, ui) {
-
-                $('#min').val(ui.values[0]);
-                $('#max').val(ui.values[1]);
-
-            },
-            stop: function (event, ui) {
-
-                $('#min').val(ui.values[0]);
-                $('#max').val(ui.values[1]);
-
-            },
-            change: function (event, ui) {
-
-                $('#min').val(ui.values[0]);
-                $('#max').val(ui.values[1]);
-
-            }
-        });
-        $('#min').val(3000);
-        $('#max').val(300000);
-    });
-</script>
-
-<!-- slick -->
-<script type="text/javascript">
-    $('.slider-for').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        fade: true,
-        asNavFor: '.slider-nav'
-    });
-    $('.slider-nav').slick({
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        asNavFor: '.slider-for',
-        dots: false,
-        arrows: false,
-        centerMode: false,
-        focusOnSelect: true
-    });
-    $('.item-slider').slick({
-        dots: false,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        responsive: [
-            {
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1
-                }
-            },
-            {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1
-                }
-            },
-            {
-                breakpoint: 570,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            },
-        ]
-    });
-    $('.text-slider').slick({
-        dots: false,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        responsive: [
-            {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1
-                }
-            },
-            {
-                breakpoint: 570,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            },
-        ]
-    });
-</script>
-
-<!-- formstyler -->
-<script type="text/javascript" src="/design/{$settings->theme}/js/jquery.formstyler.js"></script>
-<script type="text/javascript">
-    (function ($) {
-        $(function () {
-            $('input').styler();
-        });
-    })(jQuery);
-</script>
-
-

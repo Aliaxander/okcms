@@ -90,7 +90,7 @@
         </div>
     </div>
 
-    {get_posts var=last_posts limit=10 type_post="news"}
+    {get_posts var=last_posts limit=12 }
     {if $page->description || $last_posts}
     <!-- news -->
     <div class="title">Новости, статьи и обзоры</div>
@@ -98,7 +98,7 @@
         {foreach $last_posts as $post}
         <div>
             <div class="news-block">
-                <a href="{$lang_link}{$post->type_post}/{$post->url}"><img src="{$post->image|resize:250:250:false:$config->resized_blog_dir}" alt="{$post->name|escape}" title="{$post->name|escape}" class="img-responsive"></a>
+                <a href="{$lang_link}{$post->type_post}/{$post->url}"><img src="{$post->image|resize:360:360:false:$config->resized_blog_dir}" alt="{$post->name|escape}" title="{$post->name|escape}" class="img-responsive"></a>
                 <p><a href="{$lang_link}{$post->type_post}/{$post->url}">{$post->name|escape}</a></p>
             </div>
         </div>

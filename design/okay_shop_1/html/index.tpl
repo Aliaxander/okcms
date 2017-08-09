@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/design/{$settings->theme}/css/slick.css">
     <link rel="stylesheet" href="/design/{$settings->theme}/css/bootstrap.min.css">
     <link rel="stylesheet" href="/design/{$settings->theme}/css/style.css">
+    <link rel="stylesheet" href="/design/{$settings->theme}/css/jquery.fancybox.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,700|Russo+One&amp;subset=cyrillic"
           rel="stylesheet">
 
@@ -459,9 +460,43 @@
     </div>
 </div>
 <!-- /director -->
-
+{* Okay *}
+{include file="scripts.tpl"}
+{*template scripts*}
+<script src="design/{$settings->theme}/js/jquery.fancybox.min.js"></script>
+<script src="design/{$settings->theme}/js/bootstrap.min.js"></script>
+<script src="design/{$settings->theme}/js/jquery.matchHeight-min.js"></script>
+{* Autocomplete *}
+<script src="design/{$settings->theme}/js/jquery.autocomplete-min.js" defer></script>
+<script src="design/{$settings->theme}/js/okay.js"></script>
+<script>
+    $(".sub-list").css("min-height", $('.dropdown-menu').height() + 12);
+</script>
+<!-- /price -->
 <script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 
+<!-- slick -->
+<script type="text/javascript">
+    $('.slider-for').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        asNavFor: '.slider-nav'
+    });
+    $('.slider-nav').slick({
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        asNavFor: '.slider-for',
+        dots: false,
+        arrows: false,
+        centerMode: false,
+        focusOnSelect: true
+    });
     $('.item-slider').slick({
         dots: false,
         infinite: true,
@@ -516,14 +551,6 @@
         ]
     });
 </script>
-{* Okay *}
-{include file="scripts.tpl"}
-{*template scripts*}
-<script src="design/{$settings->theme}/js/jquery.fancybox.min.js"></script>
-<script src="design/{$settings->theme}/js/bootstrap.min.js"></script>
-<script src="design/{$settings->theme}/js/jquery.matchHeight-min.js"></script>
-{* Autocomplete *}
-<script src="design/{$settings->theme}/js/jquery.autocomplete-min.js" defer></script>
-<script src="design/{$settings->theme}/js/okay.js"></script>
+
 </body>
 </html>

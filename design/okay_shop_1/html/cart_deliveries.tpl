@@ -32,7 +32,13 @@
     <ul class="radio-list payment-list">
         {foreach $delivery->payment_methods as $payment_method}
         <li>
-            <label><input id="payment_{$delivery->id}_{$payment_method->id}" type="radio" name="payment_method_id" value="{$payment_method->id}"{if $delivery@first && $payment_method@first} checked{/if} /><span class="sprites i-payment-1"></span></label>
+            <label><input id="payment_{$delivery->id}_{$payment_method->id}" type="radio" name="payment_method_id" value="{$payment_method->id}"{if $delivery@first && $payment_method@first} checked{/if} />
+                <span>
+                    {if $payment_method->image}
+                        <img src="{$payment_method->image|resize:50:50:false:$config->resized_payments_dir}" />
+                    {/if}
+                </span>
+            </label>
             {$total_price_with_delivery = $cart->total_price}
             {if !$delivery->separate_payment && $cart->total_price < $delivery->free_from}
                 {$total_price_with_delivery = $cart->total_price + $delivery->price}

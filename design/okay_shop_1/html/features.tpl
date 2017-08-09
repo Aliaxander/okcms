@@ -17,7 +17,7 @@
                                                           value="{($prices->current->max|default:$prices->range->max)|escape}"
                                                           data-price="{$prices->range->max}" readonly/>Руб.</span>
                     </div>
-                    <div id="slider-range"></div>
+                    <div id="fn_slider_price"></div>
                 </div>
             </div>
         {/if}
@@ -44,9 +44,10 @@
                         {* Brand list *}
                         <ul class="check-list">
                             {foreach $category->brands as $b}
-                                <li><label><input
-                                                type="checkbox" {if $brand->id == $b->id || $smarty.get.b && in_array($b->id,$smarty.get.b)} checked{/if}>{$b->name|escape}
-                                    </label></li>
+                                <li><a class="filter_link{if $brand->id == $b->id || $smarty.get.b && in_array($b->id,$smarty.get.b)} checked{/if}" href="{furl params=[brand=>$b->url, page=>null]}">
+                                        <i class="filter_indicator"></i>
+                                        <span>{$b->name|escape}</span>
+                                    </a></li>
                                 {*<div class="filter_item">*}
                                 {*<a class="filter_link" href="{furl params=[brand=>$b->url, page=>null]}">*}
                                 {*<i class="filter_indicator"></i>*}
