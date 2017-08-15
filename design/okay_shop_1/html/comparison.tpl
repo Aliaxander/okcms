@@ -11,19 +11,17 @@
 <div class="content-small">
     <h1 data-language="comparison_header">{$lang->comparison_header}</h1>
     {if $comparison->products}
-    <div class="row collation-row">
+    <div class="row collation-row dds fn_resize">
         <div class="col-md-3 col-sm-4">
-            {if $comparison->products|count > 1}
-            <ul class="collation-sort fn_show">
-                <li class="active"><a href="#show_all" data-language="comparison_all">{$lang->comparison_all}</a></li>
-                <li  class="unique"><a href="#show_dif" data-language="comparison_unique">{$lang->comparison_unique}</a></li>
+            <ul class="collation-sort fn_show compare_show">
+                <li><a href="#show_all" class="active" data-language="comparison_all">{$lang->comparison_all}</a></li>
+                <li><a class="unique" href="#show_dif" data-language="comparison_unique">{$lang->comparison_unique}</a></li>
             </ul>
-            {/if}
             <table class="table collation-table collation-table-heading">
-                <tr><td data-language="product_rating">{$lang->product_rating}</td></tr>
+                <tr><td class="cprs_rating" data-use="cprs_rating" data-language="product_rating">{$lang->product_rating}</td></tr>
                 {if $comparison->features}
                     {foreach $comparison->features as $id=>$cf}
-                <tr><td data-feature="{$cf->id}">{$cf->name}</td></tr>
+                <tr><td class="cprs_feature_{$id} {if $comparison->features.{$id}->not_unique} not_unique{/if}"><span data-feature="{$cf->id}">{$cf->name}</span></td></tr>
                     {/foreach}
                 {/if}
             </table>
@@ -38,14 +36,14 @@
                     {if $product->features}
                     <table class="table collation-table">
                         <tr>
-                            <td>
+                            <td class="cprs_rating">
                                 <div class="progress rating">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{$product->rating*90/5|string_format:'%.0f'}px;"></div>
                                 </div>
                             </td>
                         </tr>
                         {foreach $product->features as $id=>$value}
-                            <tr><td>{$value|default:"&mdash;"}</td></tr>
+                            <tr><td data-use="cprs_feature_{$id}" {if $comparison->features.{$id}->not_unique} class="not_unique"{/if}>{$value|default:"&mdash;"}</td></tr>
                         {/foreach}
                     </table>
                     {/if}

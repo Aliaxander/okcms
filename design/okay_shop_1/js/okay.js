@@ -132,7 +132,7 @@ $(document).on('click', '.fn_comparison', function(e){
                 button.attr( 'title', text );
             }
             /* Если находимся на странице сравнения - перезагрузить */
-            if( $( '.fn_comparison_products' ).size() ) {
+            if( $( '.dds' ).size() ) {
                 window.location = window.location;
             }
         }
@@ -489,19 +489,20 @@ $(function(){
 
         resize_comparison();
         $( '.fancy_zoom' ).fancybox();
-
-        /* Показать / скрыть одинаковые характеристики в сравнении */
-        $( document ).on( 'click', '.fn_show a', function(e) {
-            e.preventDefault();
-            $( '.fn_show a.active' ).removeClass( 'active' );
-            $( this ).addClass( 'active' );
-            if( $( this ).hasClass( 'unique' ) ) {
-                $( '.cell.not_unique' ).hide();
-            } else {
-                $( '.cell.not_unique' ).show();
-            }
-        } );
     };
+
+    /* Показать / скрыть одинаковые характеристики в сравнении */
+    $( document ).on( 'click', '.fn_show li a', function(e) {
+        e.preventDefault();
+        $( '.fn_show li a.active' ).removeClass( 'active' );
+        $( this ).addClass( 'active' );
+        if( $( this ).hasClass( 'unique' ) ) {
+            $( '.not_unique' ).hide();
+        } else {
+            $( '.not_unique' ).show();
+        }
+    } );
+
     /* Рейтинг товара */
     $('.product_rating').rater({ postHref: 'ajax/rating.php' });
 
@@ -682,12 +683,13 @@ function resize_comparison() {
         $('[data-use]').each(function () {
             var use = '.' + $(this).data('use');
             var minHeight = $(this).height();
+            console.log(this + minHeight);
             if ($(use).size()) {
-                $(use).each(function () {
-                    if ($(this).height() >= minHeight) {
-                        minHeight = $(this).height();
-                    }
-                });
+                // $(use).each(function () {
+                //     if ($(this).height() >= minHeight) {
+                //         minHeight = $(this).height();
+                //     }
+                // });
                 $(use).height(minHeight);
             }
         });

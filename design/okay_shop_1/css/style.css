@@ -105,6 +105,30 @@ body{
 	text-decoration: none;
 }
 
+.product_rating {
+	display: inline-block;
+}
+
+.rating_starOff, .rating_starOn {
+	width: 90px;
+	height: 18px;
+	background: url(../images/rating.png) repeat-x left top;
+}
+
+.rating_starOff {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.rating_starOn {
+	display: block;
+	background-position: left bottom;
+}
+
+.report {
+	color: #000;
+}
+
 .checked .filter_indicator {
 	background: #ffcc33 url(../img/sprites.png) -201px -351px no-repeat;
 	border-color: #ffcc33;
@@ -1601,7 +1625,7 @@ label{
 .collation-table{border-top: 1px solid #f2f2f2;margin: 0;}
 .collation-table.table>tbody>tr>td{
 	border: none;
-	padding: 7px 20px 4px;
+	padding: 7px 20px;
 	vertical-align: middle;
 }
 .collation-table.table>tbody>tr:first-child>td{padding: 7px 20px 12px;}
@@ -1942,13 +1966,13 @@ a:hover .i-catalogue-7{background-position: -300px -550px;}
 	width: 18px;
 	height: 16px;
 }
-.i-heart-small.active, .i-heart-small:hover{background-position: -100px -300px;}
+.i-heart-small.active, .i-heart-small:hover, .i-heart-small.selected {background-position: -100px -300px;}
 .i-scales-small{
 	background-position: -50px -300px;
 	width: 17px;
 	height: 17px;
 }
-.i-scales-small.active, .i-scales-small:hover{background-position: 0 -300px;}
+.i-scales-small.active, .i-scales-small:hover, .i-scales-small.selected{background-position: 0 -300px;}
 .i-vk{
 	background-position: -200px -300px;
 	width: 19px;
@@ -2012,6 +2036,22 @@ a:hover .i-catalogue-7{background-position: -300px -550px;}
 	#navbar{
 		float: left;
 		padding: 0;
+	}
+	.secret_number {
+		border: 1px solid #e8e8e1;
+		padding: 9px;
+		border-radius: 2px;
+		background: #f5f8f9;
+		display: inline-block;
+		position: relative;
+		text-shadow: 1px 1px #38c0f3, -1px 1px mediumturquoise, -1px -1px mediumturquoise, 1px -1px mediumturquoise;
+		color: white;
+		font-weight: bold;
+		-moz-user-select: none;
+		-khtml-user-select: none;
+		user-select: none;
+		pointer-events: none;
+		cursor: pointer;
 	}
 	.navbar-nav>li+li{margin-left: 22px;}
 	.catalogue-home .dropdown-menu{
