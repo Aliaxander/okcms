@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html {if $language->href_lang}lang="{$language->href_lang|escape}"{/if} prefix="og: http://ogp.me/ns#">
+<html {if $language->href_lang}lang="{$language->href_lang|escape}"{/if} prefix="og: http://ogp.me/ns#"
+      xmlns="http://www.w3.org/1999/html">
 <head>
     {* Full base address *}
     <base href="{$config->root_url}/">
@@ -352,14 +353,14 @@
         <!-- subscription -->
         <div class="subscription">
             <div class="container">
-                <form action="#">
+                <form method="post">
                     <div class="row">
                         <div class="col-lg-5 col-sm-5">
                             <p><span class="sprites i-subscription"></span><b>Подписывайтесь</b> на акции и скидки:</p>
                         </div>
-                        <div class="col-lg-5 col-sm-4"><p><input type="text" placeholder="Ваш e-mail адрес"></p></div>
+                        <div class="col-lg-5 col-sm-4"><p><input type="email" name="subscribe_email" placeholder="Ваш e-mail адрес"></p></div>
                         <div class="col-lg-2 col-sm-3">
-                            <button class="btn-block btn btn-black">Подписаться</button>
+                            <button type="submit" class="btn-block btn btn-black">Подписаться</button>
                         </div>
                     </div>
                 </form>
@@ -377,35 +378,35 @@
                 <div class="col-md-2 col-sm-3 col-xs-6">
                     <div class="title-nav">АЛЬТТЕХНО</div>
                     <ul class="footer-nav">
-                        <li><a href="/design/{$settings->theme}/#">О компании</a></li>
-                        <li><a href="/design/{$settings->theme}/#">Новости, статьи и обзоры</a></li>
-                        <li><a href="/design/{$settings->theme}/#">Контакты</a></li>
+                        <li><a href="/o-kompanii">О компании</a></li>
+                        <li><a href="/news">Новости</a></li>
+                        <li><a href="/contact">Контакты</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2 col-sm-3 col-xs-6">
                     <div class="title-nav">Покупателям</div>
                     <ul class="footer-nav">
-                        <li><a href="/design/{$settings->theme}/#">Оплата и доставка</a></li>
-                        <li><a href="/design/{$settings->theme}/#">Гарантии и возврат</a></li>
-                        <li><a href="/design/{$settings->theme}/#">Бонусная программа</a></li>
+                        <li><a href="/oplata">Оплата</a></li>
+                        <li><a href="/dostavka">Доставка</a></li>
+                        <li><a href="/bonusnaya-programma">Бонусная программа</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-6">
                     <div class="title-nav">Информация</div>
                     <ul class="footer-nav">
-                        <li><a href="/design/{$settings->theme}/#">Адреса магазинов</a></li>
-                        <li><a href="/design/{$settings->theme}/#">Сервисные центры</a></li>
-                        <li><a href="/design/{$settings->theme}/#">Гарантийное обслуживание</a></li>
+                        <li><a href="/adresa-magazinov">Адреса магазинов</a></li>
+                        <li><a href="/servisnye-tsentry">Сервисные центры</a></li>
+                        <li><a href="/garantijnoe-obsluzhivanie">Гарантийное обслуживание</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2 col-sm-3 col-xs-6">
                     <div class="title-nav">Мы в соц. сетях</div>
                     <ul class="social-list">
-                        <li><a href="/design/{$settings->theme}/#" target="_blank"><span class="sprites i-vk"></span>Вконтакте</a>
+                        <li><a href="https://vk.com" target="_blank"><span class="sprites i-vk"></span>Вконтакте</a>
                         </li>
-                        <li><a href="/design/{$settings->theme}/#" target="_blank"><span class="sprites i-fb"></span>Фейсбук</a>
+                        <li><a href="https://faceboock.com" target="_blank"><span class="sprites i-fb"></span>Фейсбук</a>
                         </li>
-                        <li><a href="/design/{$settings->theme}/#" target="_blank"><span class="sprites i-ins"></span>Инстаграм</a>
+                        <li><a href="https://instagram.com" target="_blank"><span class="sprites i-ins"></span>Инстаграм</a>
                         </li>
                     </ul>
                 </div>
@@ -422,14 +423,14 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
             <div class="modal-body">
                 <div class="title-big">Заказ обратного звонка</div>
-                <form action="#">
-                    <div class="form-group"><label>Имя:</label><input type="text"></div>
-                    <div class="form-group"><label>Телефон <span class="text-red">*</span>:</label><input type="tel">
+                <form method="post">
+                    <div class="form-group"><label>Имя:</label><input name="name" type="text"></div>
+                    <div class="form-group"><label>Телефон <span class="text-red">*</span>:</label><input name="phone" type="tel">
                     </div>
-                    <div class="form-group"><label>Сообщение:</label><textarea name="comment-1"
+                    <div class="form-group"><label>Сообщение:</label><textarea name="message"
                                                                                id="commen-1"></textarea></div>
                     <p>
-                        <button class="btn btn-big">Отправить</button>
+                        <input type="submit" name="callback" class="btn btn-big" value="Отправить"></input>
                     </p>
                 </form>
             </div>
@@ -445,20 +446,32 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
             <div class="modal-body">
                 <div class="title-big">Письмо директору</div>
-                <form action="#">
-                    <div class="form-group"><label>Имя:</label><input type="text"></div>
-                    <div class="form-group"><label>Телефон <span class="text-red">*</span>:</label><input type="tel">
+                <form method="post">
+                    <div class="form-group"><label>Имя:</label><input name="name" type="text"></div>
+                    <div class="form-group"><label>Телефон <span class="text-red">*</span>:</label><input name="phone" type="tel">
                     </div>
-                    <div class="form-group"><label>Сообщение:</label><textarea name="comment-1"
+                    <div class="form-group"><label>Сообщение:</label><textarea name="message"
                                                                                id="commen-1"></textarea></div>
                     <p>
-                        <button class="btn btn-big">Отправить</button>
+                        <input type="submit" name="callback" class="btn btn-big">Отправить</input>
                     </p>
                 </form>
             </div>
         </div>
     </div>
 </div>
+{if $call_sent}
+    <div class="hidden">
+        <div id="fn_callback_sent" class="popup">
+            <div class="popup_heading">
+                <span data-language="callback_sent_header">{$lang->callback_sent_header}</span>
+            </div>
+
+            <div data-language="callback_sent_text">{$lang->callback_sent_text}</div>
+        </div>
+    </div>
+{/if}
+
 <!-- /director -->
 {* Okay *}
 {include file="scripts.tpl"}
