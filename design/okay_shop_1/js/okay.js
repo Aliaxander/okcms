@@ -683,7 +683,6 @@ function resize_comparison() {
         $('[data-use]').each(function () {
             var use = '.' + $(this).data('use');
             var minHeight = $(this).height();
-            console.log(this + minHeight);
             if ($(use).size()) {
                 // $(use).each(function () {
                 //     if ($(this).height() >= minHeight) {
