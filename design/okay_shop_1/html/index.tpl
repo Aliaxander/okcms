@@ -379,22 +379,22 @@
                     <div class="title-nav">АЛЬТТЕХНО</div>
                     <ul class="footer-nav">
                         <li><a href="/o-kompanii">О компании</a></li>
-                        <li><a href="/news">Новости</a></li>
+                        <li><a href="/news">Новости, статьи и обзоры</a></li>
                         <li><a href="/contact">Контакты</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2 col-sm-3 col-xs-6">
                     <div class="title-nav">Покупателям</div>
                     <ul class="footer-nav">
-                        <li><a href="/oplata">Оплата</a></li>
-                        <li><a href="/dostavka">Доставка</a></li>
+                        <li><a href="/oplata-i-dostavka">Оплата и доставка</a></li>
+                        <li><a href="/garantii-i-vozvrat">Гарантии и возврат</a></li>
                         <li><a href="/bonusnaya-programma">Бонусная программа</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-6">
                     <div class="title-nav">Информация</div>
                     <ul class="footer-nav">
-                        <li><a href="/adresa-magazinov">Адреса магазинов</a></li>
+                        <li><a href="/magaziny">Адреса магазинов</a></li>
                         <li><a href="/servisnye-tsentry">Сервисные центры</a></li>
                         <li><a href="/garantijnoe-obsluzhivanie">Гарантийное обслуживание</a></li>
                     </ul>
