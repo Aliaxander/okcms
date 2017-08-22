@@ -1,5 +1,5 @@
 <tr>
-    <td><a href="{$lang_link}/products/{$product->url}" class="article">{$product->variant->sku|escape}<span class="hover-image"><img src="{$product->image->filename|resize:100:100}" alt=""
+    <td><a href="{$lang_link}/products/{$product->url}" class="article">{if $product->variant->sku}{$product->variant->sku|escape}{else}-----{/if}<span class="hover-image"><img src="{$product->image->filename|resize:100:100}" alt=""
                                                                                 class="img-responsive"></span></a></td>
     <td><a href="{$lang_link}/products/{$product->url}">{$product->name|escape}</a></td>
     <td>

@@ -21,8 +21,8 @@
                 </a></li>
         </ul>
         <ul class="type-list">
-            <li class="cat-list"><a href="#" class="sprites i-list"></a></li>
-            <li class="cat-block active"><a href="#" class="sprites i-block"></a></li>
+            <li class="cat-list"><span class="sprites i-list" style="cursor: pointer"></span></li>
+            <li class="cat-block active"><span class="sprites i-block" style="cursor: pointer"></span></li>
         </ul>
     </div>
 {/if}
