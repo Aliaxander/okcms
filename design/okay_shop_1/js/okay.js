@@ -143,6 +143,20 @@ $(document).on('click', '.fn_comparison', function(e){
     }
 });
 
+$(document).on('click', '.cat-list', function (e) {
+    $('.cat-block').removeClass('active');
+    $('.cat-list').addClass('active');
+    $('.item-table').show();
+    $('.item-catalogue').hide();
+});
+
+$(document).on('click', '.cat-block', function (e) {
+    $('.cat-list').removeClass('active');
+    $('.cat-block').addClass('active');
+    $('.item-table').hide();
+    $('.item-catalogue').show();
+});
+
 /* Функция добавления / удаления в папку избранного */
 $(document).on('click', '.fn_wishlist', function(e){
     e.preventDefault();

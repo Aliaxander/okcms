@@ -20,9 +20,9 @@
                     <span data-language="products_by_name">{$lang->products_by_rating}</span>
                 </a></li>
         </ul>
-        {*<ul class="type-list">*}
-            {*<li><a href="catalogue-list.html" class="sprites i-list"></a></li>*}
-            {*<li class="active"><a href="catalogue.html" class="sprites i-block"></a></li>*}
-        {*</ul>*}
+        <ul class="type-list">
+            <li class="cat-list"><a href="#" class="sprites i-list"></a></li>
+            <li class="cat-block active"><a href="#" class="sprites i-block"></a></li>
+        </ul>
     </div>
 {/if}
