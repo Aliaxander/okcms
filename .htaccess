@@ -95,6 +95,7 @@ RewriteRule ^feed.xml?$	feed.php  [L,QSA]
 
 # feedback
 RewriteRule ^([a-z]{2}/)?contact/?$	index.php?module=FeedbackView&lang_label=$1  [L,QSA]
+RewriteRule ^([a-z]{2}/)?magaziny/?$	index.php?module=MagView&lang_label=$1  [L,QSA]
 
 #downloads
 RewriteRule ^([a-z]{2}/)?order/([^/]+)/([^/]+)/?$	index.php?module=OrderView&url=$2&file=$3&lang_label=$1  [L,QSA]
